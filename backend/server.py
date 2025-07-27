@@ -35,6 +35,7 @@ class AnalysisResult(BaseModel):
     confidence: float
     sender: str
     subject: str
+    body: Optional[str] = None
     ip_address: Optional[str] = None
     location: Optional[dict] = None
     urls_detected: int
