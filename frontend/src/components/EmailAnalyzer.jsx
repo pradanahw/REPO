@@ -326,17 +326,29 @@ const EmailAnalyzer = () => {
 
                   <Separator />
 
-                  {/* Technical Details */}
+                  {/* Email Content Preview */}
                   <div className="space-y-3">
-                    <h4 className="font-semibold text-gray-800">Technical Analysis</h4>
-                    <div className="grid grid-cols-1 gap-3">
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-600">URLs Detected:</span>
-                        <Badge variant="outline">{analysisResult.urls_detected}</Badge>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-600">Suspicious Words:</span>
-                        <Badge variant="outline">{analysisResult.suspicious_words}</Badge>
+                    <h4 className="font-semibold text-gray-800">Email Content Preview</h4>
+                    <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                      <div className="space-y-3">
+                        <div>
+                          <p className="text-sm font-medium text-gray-600 mb-1">Subject:</p>
+                          <p className="text-sm text-gray-800 bg-white p-2 rounded border">
+                            {analysisResult.subject || 'No subject'}
+                          </p>
+                        </div>
+                        {analysisResult.body && (
+                          <div>
+                            <p className="text-sm font-medium text-gray-600 mb-1">Content Preview:</p>
+                            <div className="text-sm text-gray-800 bg-white p-3 rounded border max-h-32 overflow-y-auto">
+                              <p className="whitespace-pre-wrap break-words">
+                                {analysisResult.body.length > 300 
+                                  ? `${analysisResult.body.substring(0, 300)}...` 
+                                  : analysisResult.body}
+                              </p>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
