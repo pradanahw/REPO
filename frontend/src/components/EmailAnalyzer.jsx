@@ -277,9 +277,6 @@ const EmailAnalyzer = () => {
                       )}
                       {analysisResult.classification}
                     </Badge>
-                    <p className="text-sm text-gray-600 mt-2">
-                      Confidence: {analysisResult.confidence}%
-                    </p>
                   </div>
 
                   <Separator />
