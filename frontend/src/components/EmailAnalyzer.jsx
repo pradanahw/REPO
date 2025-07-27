@@ -57,12 +57,24 @@ const EmailAnalyzer = () => {
 
     setIsAnalyzing(true);
     
-    // Simulate API call with mock data
     try {
-      await new Promise(resolve => setTimeout(resolve, 2500)); // Simulate processing time
+      // Create FormData for file upload
+      const formData = new FormData();
+      formData.append('file', selectedFile);
       
-      // Use mock data for now
-      const result = mockData.getRandomAnalysis();
+      // Make API call to backend
+      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+      const response = await fetch(`${BACKEND_URL}/api/analyze`, {
+        method: 'POST',
+        body: formData,
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Analysis failed');
+      }
+      
+      const result = await response.json();
       setAnalysisResult(result);
       
       toast({
@@ -74,7 +86,7 @@ const EmailAnalyzer = () => {
     } catch (error) {
       toast({
         title: "Analysis failed",
-        description: "An error occurred during analysis. Please try again.",
+        description: error.message || "An error occurred during analysis. Please try again.",
         variant: "destructive"
       });
     } finally {
