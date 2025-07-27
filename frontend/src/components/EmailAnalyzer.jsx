@@ -304,12 +304,12 @@ const EmailAnalyzer = () => {
                         </div>
                       </div>
 
-                      {analysisResult.ipAddress && (
+                      {analysisResult.ip_address && (
                         <div className="flex items-start space-x-3">
                           <Globe className="h-5 w-5 text-orange-600 mt-0.5" />
                           <div className="flex-1">
                             <p className="font-semibold text-gray-800">IP Address</p>
-                            <p className="text-gray-600 font-mono">{analysisResult.ipAddress}</p>
+                            <p className="text-gray-600 font-mono">{analysisResult.ip_address}</p>
                           </div>
                         </div>
                       )}
