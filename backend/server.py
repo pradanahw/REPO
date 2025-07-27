@@ -91,6 +91,7 @@ async def analyze_email(file: UploadFile = File(...)):
             confidence=analysis_result['confidence'],
             sender=analysis_result['sender'],
             subject=analysis_result['subject'],
+            body=analysis_result['body'],
             ip_address=analysis_result['ip_address'],
             location=analysis_result['location'],
             urls_detected=analysis_result['urls_detected'],
