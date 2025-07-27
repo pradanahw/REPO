@@ -6,7 +6,6 @@ import { Badge } from './ui/badge';
 import { Separator } from './ui/separator';
 import { Upload, FileText, Shield, AlertTriangle, Download, Loader2, MapPin, Mail, Globe } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
-import { mockData } from '../utils/mockData';
 
 const EmailAnalyzer = () => {
   const [selectedFile, setSelectedFile] = useState(null);
