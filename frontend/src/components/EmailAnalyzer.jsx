@@ -336,11 +336,11 @@ const EmailAnalyzer = () => {
                     <div className="grid grid-cols-1 gap-3">
                       <div className="flex justify-between items-center">
                         <span className="text-gray-600">URLs Detected:</span>
-                        <Badge variant="outline">{analysisResult.urlsDetected}</Badge>
+                        <Badge variant="outline">{analysisResult.urls_detected}</Badge>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-gray-600">Suspicious Words:</span>
-                        <Badge variant="outline">{analysisResult.suspiciousWords}</Badge>
+                        <Badge variant="outline">{analysisResult.suspicious_words}</Badge>
                       </div>
                     </div>
                   </div>
