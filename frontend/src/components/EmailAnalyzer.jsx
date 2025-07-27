@@ -94,36 +94,39 @@ const EmailAnalyzer = () => {
     }
   };
 
-  const downloadCSV = () => {
-    if (!analysisResult) return;
+  const downloadCSV = async () => {
+    if (!analysisResult || !analysisResult.id) return;
 
-    const csvContent = [
-      ['Field', 'Value'],
-      ['Classification', analysisResult.classification],
-      ['Confidence', `${analysisResult.confidence}%`],
-      ['Sender', analysisResult.sender],
-      ['Subject', analysisResult.subject],
-      ['IP Address', analysisResult.ipAddress || 'N/A'],
-      ['Location', analysisResult.location ? `${analysisResult.location.city}, ${analysisResult.location.country}` : 'N/A'],
-      ['URLs Detected', analysisResult.urlsDetected],
-      ['Suspicious Words', analysisResult.suspiciousWords],
-      ['Analysis Date', new Date().toISOString()]
-    ].map(row => row.map(field => `"${field}"`).join(',')).join('\n');
+    try {
+      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+      const response = await fetch(`${BACKEND_URL}/api/analysis/${analysisResult.id}/csv`);
+      
+      if (!response.ok) {
+        throw new Error('Failed to download CSV');
+      }
+      
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `email-analysis-${Date.now()}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
 
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `email-analysis-${Date.now()}.csv`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-
-    toast({
-      title: "Download started",
-      description: "Analysis results downloaded as CSV"
-    });
+      toast({
+        title: "Download started",
+        description: "Analysis results downloaded as CSV"
+      });
+      
+    } catch (error) {
+      toast({
+        title: "Download failed",
+        description: error.message || "Failed to download CSV file",
+        variant: "destructive"
+      });
+    }
   };
 
   return (
