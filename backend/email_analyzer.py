@@ -188,6 +188,7 @@ class EmailAnalyzer:
                 'confidence': round(confidence, 1),
                 'sender': email_data['sender'],
                 'subject': email_data['subject'],
+                'body': email_data['body'],
                 'ip_address': ip_address,
                 'location': location,
                 'urls_detected': urls_detected,
